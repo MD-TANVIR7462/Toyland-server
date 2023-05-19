@@ -71,9 +71,11 @@ app.get('/toyland/:id', async (req,res)=>{
   const result = await toyland.findOne(query)
   res.send(result)
 })
+
+
+
 // ---------getting sub-cetegory------
 app.get('/user', async (req,res)=>{
-  // console.log(req.query.sub_category)
   let query = {}
   if(req.query.sub_category){
     query={sub_category : req.query.sub_category}
@@ -84,7 +86,13 @@ app.get('/user', async (req,res)=>{
   res.send(result)
 })
 
+// -------------------post-mathod------------
+app.post('/toyland',async (req,res)=>{
+  const newToy =req.body
+  const result = await toyland.insertOne(newToy);
 
+  res.send(result)
+})
 
 
     // Send a ping to confirm a successful connection
