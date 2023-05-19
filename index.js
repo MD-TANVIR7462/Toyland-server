@@ -30,6 +30,9 @@ async function run() {
 
     const database = client.db("toyDB");
     const toyland = database.collection("toyland");
+    const subcetegory = database.collection("Subcetegory")
+    const gelery = database.collection("gelery")
+  
 
 
     // Connect the client to the server	(optional starting in v4.7)
@@ -40,6 +43,26 @@ async function run() {
       const result = await corsor.toArray()
       res.send(result)
     })
+
+
+
+    app.get('/subcetgory', async (req,res)=>{
+      const corsor = subcetegory.find()
+      const result = await corsor.toArray()
+      res.send(result)
+    })
+
+
+    // -----------gelery section---------
+    app.get('/gelery', async (req,res)=>{
+      const corsor = gelery.find()
+      const result = await corsor.toArray()
+      res.send(result)
+    })
+
+
+
+
 
 // ---------getting a single data------
 app.get('/toyland/:id', async (req,res)=>{
