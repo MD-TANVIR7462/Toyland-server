@@ -36,7 +36,7 @@ async function run() {
 
 
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+  client.connect();
     // -------------getting all data--------
     app.get('/toyland', async (req,res)=>{
       const corsor = toyland.find()
