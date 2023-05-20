@@ -86,6 +86,19 @@ app.get('/user', async (req,res)=>{
   res.send(result)
 })
 
+// ----getting email data-----
+app.get('/singleEmail', async (req,res)=>{
+  console.log(req.query.sellerEmail)
+  let query = {}
+  if(req.query.sellerEmail){
+    query={sellerEmail : req.query.sellerEmail}
+  console.log('hellow')
+  }
+  console.log(query)
+  const result = await toyland.find(query).toArray() || {}
+  res.send(result)
+})
+
 // -------------------post-mathod------------
 app.post('/toyland',async (req,res)=>{
   const newToy =req.body
@@ -93,6 +106,10 @@ app.post('/toyland',async (req,res)=>{
 
   res.send(result)
 })
+
+
+
+
 
 
     // Send a ping to confirm a successful connection
