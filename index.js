@@ -5,7 +5,16 @@ const app = express()
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT||5000
 
-app.use(cors())
+// app.use(cors({origin: 'http://localhost:5173'}))
+
+const corsOptions ={
+   origin:'http://localhost:5173', 
+   credentials:true,    
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
+
 app.use(express.json())
  
 
@@ -109,16 +118,36 @@ app.post('/toyland',async (req,res)=>{
 
 
 
-// ---delet mathod------
-app.delete('/toyland/:id', async (req,res)=>{
-  // console.log('delet')
+// ---delet   mathod------
+app.delete('/delete/:id', async (req,res)=>{
+  console.log('delet')
   const id = req.params.id
-  // console.log(id)
+  console.log(id)
 
   const query = {_id : new ObjectId(id)}
   const result = await toyland.deleteOne(query)
   res.send(result)
 })
+
+
+
+app.patch('/update/:id', async (req,res)=>{
+  const id = req.params.id
+  const updated = req.body
+  const filter = {_id : new ObjectId(id)}
+  // console.log(updated)
+  const updateDoc = {
+    $set: {
+      price:updated.price,
+      available_quantity:updated.quantity,
+      description:updated.description
+    },
+  };
+  const result = await toyland.updateOne(filter,updateDoc)
+
+res.send(result)
+})
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
@@ -140,5 +169,3 @@ app.get('/',(req,res)=>{
 })
 app.listen(port)
 
-// ToyLand
-// GdvMsANvu4DK32yH
