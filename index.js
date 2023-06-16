@@ -49,6 +49,8 @@ async function run() {
       res.send(result);
     });
 
+
+    
     app.get('/gelery', async (req, res) => {
       const cursor = gelery.find();
       const result = await cursor.toArray();
